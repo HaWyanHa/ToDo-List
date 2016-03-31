@@ -1,12 +1,12 @@
-var counter = 0; 
-
 function TODO() {
 
+	var counter = 0;
 
 	$("form").submit(function(event) {
-		var newToDO = $(".new-todo").val();
 		
 		event.preventDefault();
+
+		var newToDO = $(".new-todo").val();
 
 		counter++;
 		// console.log(counter);
@@ -15,26 +15,26 @@ function TODO() {
 
 		$(".incomplete-items").text(counter);
 
-		$(".items").append(
-			$("<li>").append(
-				$("<article>")
+		$(".items")
+				.append($("<li>")
+				.append($("<article>")
 				.append($("<button>").attr("class", "check"))
 				.append($("<p>").text(newToDO))
 				.append($("<input>").attr({"type": "text", "class": "edit-todo", "value": newToDO}))
 				.append($("<button>").attr("class", "delete").text("X"))
-				)
-			);
+						)
+				);
 
 	});
 
 	//items in the <li> below
 	$(".items").on("click", ".delete", function(event){
 		console.log('in delete');
-		if ($(this).closest("article").hasClass("completed")) {
 			$(this).closest('li').remove();
+
+		if ($(this).closest("article").hasClass("completed")) {
 		} else {
 			counter--;
-			$(this).closest('li').remove();
 			$(".incomplete-items").text(counter);
 		}
 	});
@@ -64,44 +64,35 @@ function TODO() {
 		}
 	});
 
-			// $("form").on("submit", function ( event ) {
-			// 	newToDO = $(".new-todo").val();
-			// })
-
 	//end items in the </li>
 
 	$(".show-all").on("click", function(event){
 		$("article").closest("li").show();
 		$(".show-all").addClass("active");
-		$(".show-active").removeClass("active");
-		$(".show-completed").removeClass("active");
+		$(".show-active, .show-completed").removeClass("active");
 	})
 
 	$(".show-active").on("click", function(event){
 		$("article:not(.completed)").closest("li").show();
 		$(".completed").closest("li").hide();
 		$(".show-active").addClass("active");
-		$(".show-all").removeClass("active");
-		$(".show-completed").removeClass("active");
+		$(".show-all, .show-completed").removeClass("active");
 
 	})
 
 	$(".show-completed").on("click", function(event){
 		$(".completed").closest("li").show();
 		$("article:not(.completed)").closest("li").hide();
-		$(".show-active").removeClass("active");
-		$(".show-all").removeClass("active");
+		$(".show-active, .show-all").removeClass("active");
 		$(".show-completed").addClass("active");
 
 	})
 
 	$(".clear").on("click", function(event){
 		$(".completed").closest("li").remove();
-
 		$("article").closest("li").show();
 		$(".show-all").addClass("active");
-		$(".show-active").removeClass("active");
-		$(".show-completed").removeClass("active");
+		$(".show-active, .show-completed").removeClass("active");
 	})
 
 
@@ -115,6 +106,4 @@ function TODO() {
 // worried about seeing this side of me.
 
 
-}
-
-TODO();
+}TODO();
